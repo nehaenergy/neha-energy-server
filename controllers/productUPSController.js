@@ -1,13 +1,13 @@
-const { ProductUPS } = require("../models/ProductUPS");
+const ProductUPS = require("../models/ProductUPS");
 
-export const getProductUPS = async (req, res) => {
+const getProductUPS = async (req, res) => {
 
     const allUps = await ProductUPS.find();
     return res.json(allUps);
 
 }
 
-export const addNewProductUPS = async (req, res) => {
+const addNewProductUPS = async (req, res) => {
 
     const {
         name, 
@@ -15,8 +15,10 @@ export const addNewProductUPS = async (req, res) => {
         voltage,
         config,
         image,
+        description,
         features,
-        applications
+        applications,
+        pdf
     } = req.body;
 
     const newUps = new ProductUPS({ 
@@ -25,10 +27,17 @@ export const addNewProductUPS = async (req, res) => {
         voltage,
         config,
         image,
+        description,
         features,
-        applications
+        applications,
+        pdf
     });
 
     await newUps.save();
     return res.json({ msg: "New Ups added successfully"});
+}
+
+module.exports = {
+    getProductUPS,
+    addNewProductUPS
 }

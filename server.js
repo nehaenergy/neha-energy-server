@@ -1,24 +1,34 @@
 const express = require('express');
+const cors = require("cors");
 
 const app = express();
+app.use(express.json());
+app.use(cors());
+
 const mongodb = require('./database/mongodb');
 
-// Connect to MongoDB
-mongodb.connect();
+const PORT = 7000;
 
-app.get('/', (req,res) => {
-    console.log('Server is running successfully');
+app.get('/', (req, res) => {
+  console.log('Server is running successfully');
 
-    res.send('Server is running on ' + PORT);
+  res.send('Server is running on ' + PORT);
 });
 
 //routes
 const productUpsRoutes = require('./routes/productUPSRoute');
 
-app.use("/product/ups", )
+app.use("/product/ups", productUpsRoutes);
 
-// Start the server
-const PORT = 7030;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+
+// Connect to MongoDB
+mongodb.connect().then(() => {
+
+  // Start the server
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+
+
+}).catch(error => console.log("Error in connecting MongoDB:" + error));
+

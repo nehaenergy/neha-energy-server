@@ -1,12 +1,13 @@
 const express = require("express");
-const route = express.Router();
+const router = express.Router();
 
 const {
     getProductUPS,
+    addNewProductUPS
 } = require('../controllers/productUPSController');
 
-route.get("/", (req, res) => getProductUPS(req, res));
+router.get("/", (req, res) => getProductUPS(req, res));
 
-module.exports = {
-    getProductUPS,
-}
+router.post("/new", (req, res) => addNewProductUPS(req, res));
+
+module.exports = router;

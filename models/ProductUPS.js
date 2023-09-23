@@ -22,6 +22,10 @@ const ProductUPSSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    description: {
+        type: String,
+        required: true,
+    },
     features: {
         type: [String],
         required: true,
@@ -31,6 +35,10 @@ const ProductUPSSchema = new mongoose.Schema({
         type: [String],
         required: true,
         default: []
+    },
+    pdf: {
+        type: String,
+        required: true,
     }
 
 });
